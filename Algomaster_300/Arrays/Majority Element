@@ -1,0 +1,32 @@
+Given an array nums of size n, return the majority element.
+
+The majority element is the element that appears more than ⌊n / 2⌋ times. You may assume that the majority element always exists in the array.
+
+Boyer Moore Voting Algorithm
+
+Why it works?
+
+Think cancellation. Pair up elements as we scan:
+
+Each time we see a value different from the current candidate, we “cancel” one occurrence of the candidate with that different value by doing count--.
+Each time we see the same value as the candidate, we increase count, effectively “uncanceling” or reinforcing the candidate.
+If there truly is a majority element M (appears more than ⌊n/2⌋ times), then:
+
+Across the entire array, every non-M element can be paired with at most one M for cancellation.
+Since M occurs strictly more than all others combined, you cannot cancel all of the Ms. There will be a surplus of Ms left unpaired.
+That surplus ensures the final surviving candidate is M.
+
+class Solution {
+public:
+    int majorityElement(vector<int>& nums) {
+        int candidate = nums[0];
+        int count = 0;
+        for (int num : nums) {
+            if (count == 0) {
+                candidate = num;
+            }
+            count += (num == candidate) ? 1 : -1;
+        }
+        return candidate;
+    }
+};
