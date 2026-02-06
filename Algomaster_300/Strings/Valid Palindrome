@@ -1,0 +1,36 @@
+A phrase is a palindrome if, after converting all uppercase letters into lowercase letters and removing all non-alphanumeric characters, it reads the same forward and backward. Alphanumeric characters include letters and numbers.
+
+Given a string s, return true if it is a palindrome, or false otherwise.
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        // Step 1: Initialize two pointers
+        int left = 0;
+        int right = (int)s.size() - 1;
+
+        // Step 2: Check palindrome property with skipping non-alphanumeric
+        while (left < right) {
+            // Find the next valid alphanumeric character from left
+            while (left < right && !isalnum((unsigned char)s[left])) {
+                left++;
+            }
+
+            // Find the next valid alphanumeric character from right
+            while (left < right && !isalnum((unsigned char)s[right])) {
+                right--;
+            }
+
+            // Compare characters in a case-insensitive manner
+            if (tolower((unsigned char)s[left]) != tolower((unsigned char)s[right])) {
+                return false; // Not a palindrome if any mismatch occurs
+            }
+
+            // Move pointers inward
+            left++;
+            right--;
+        }
+
+        return true; // String is a palindrome
+    }
+};
