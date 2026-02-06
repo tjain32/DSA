@@ -1,0 +1,21 @@
+Given an integer array nums, return the number of subarrays filled with 0.
+
+A subarray is a contiguous non-empty sequence of elements within an array.
+
+class Solution {
+public:
+    long long zeroFilledSubarray(vector<int>& nums) {
+        long cnt = 0;
+        long long ans = 0;
+        for(int num : nums){
+            if(num==0)
+            {
+                cnt++;
+                ans+=cnt;
+            }else{
+                cnt=0;
+            }
+        }
+        return ans;
+    }
+};
